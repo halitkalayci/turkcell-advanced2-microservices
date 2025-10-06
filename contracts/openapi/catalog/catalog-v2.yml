@@ -1,34 +1,34 @@
 openapi: 3.0.3
 info:
   title: Catalog API
-  version: 1.0.0
-  description: Product catalog service contract (v1)
+  version: 2.0.0
+  description: Product catalog service contract (v2)
 servers:
-  - url: http://localhost:8080/api/v1
+  - url: http://localhost:8080/api/v2
 tags:
   - name: Catalog
     description: Catalog API
 paths:
-  /api/v1/products:
+  /api/v2/products:
     post:
-      tags: [ Catalog ]
+      tags: [CatalogV2]
       summary: Create product
       operationId: createProduct
       requestBody:
         required: true
         content:
           application/json:
-            schema: { $ref: '#/components/schemas/ProductCreateRequest' }
+            schema: { $ref: '#/components/schemas/ProductCreateRequestV2' }
       responses:
         '201':
           description: Created
           content:
             application/json:
-              schema: { $ref: '#/components/schemas/ProductResponse' }
+              schema: { $ref: '#/components/schemas/ProductResponseV2' }
         '409': { description: Name not unique }
 
     get:
-      tags: [ Catalog ]
+      tags: [CatalogV2]
       summary: List products (paged)
       operationId: listProducts
       parameters:
@@ -48,14 +48,14 @@ paths:
                 properties:
                   items:
                     type: array
-                    items: { $ref: '#/components/schemas/ProductResponse' }
+                    items: { $ref: '#/components/schemas/ProductResponseV2' }
                   page: { type: integer }
                   size: { type: integer }
                   total: { type: integer, format: int64 }
 
-  /api/v1/products/{id}:
+  /api/v2/products/{id}:
     get:
-      tags: [ Catalog ]
+      tags: [CatalogV2]
       summary: Get product by id
       operationId: getProductById
       parameters:
@@ -68,31 +68,33 @@ paths:
           description: OK
           content:
             application/json:
-              schema: { $ref: '#/components/schemas/ProductResponse' }
+              schema: { $ref: '#/components/schemas/ProductResponseV2' }
         '404': { description: Not found }
 
 components:
   schemas:
-    Money:
+    MoneyV2:
       type: object
-      required: [ amount, currency ]
+      required: [amount, currency]
       properties:
         amount: { type: string, pattern: '^-?\\d{1,10}(\\.\\d{1,2})?$' }
         currency: { type: string, minLength: 3, maxLength: 8, example: TRY }
-    ProductCreateRequest:
+    ProductCreateRequestV2:
       type: object
-      required: [ name, price, stock ]
+      required: [name, price, stock, picture]
       properties:
         name: { type: string, minLength: 1, maxLength: 255 }
         description: { type: string, maxLength: 2000 }
-        price: { $ref: '#/components/schemas/Money' }
+        price: { $ref: '#/components/schemas/MoneyV2' }
         stock: { type: integer, minimum: 0 }
-    ProductResponse:
+        picture: { type: string }
+    ProductResponseV2:
       type: object
-      required: [ id, name, price, stock ]
+      required: [id, name, price, stock, picture]
       properties:
         id: { type: string, format: uuid }
         name: { type: string }
         description: { type: string }
-        price: { $ref: '#/components/schemas/Money' }
+        price: { $ref: '#/components/schemas/MoneyV2' }
         stock: { type: integer }
+        picture: { type: string }

@@ -1,9 +1,9 @@
 package com.turkcell.catalogservice;
 
-import com.turkcell.catalogservice.contract.api.CatalogApi;
-import com.turkcell.catalogservice.contract.model.ListProducts200Response;
-import com.turkcell.catalogservice.contract.model.ProductCreateRequest;
-import com.turkcell.catalogservice.contract.model.ProductResponse;
+import com.turkcell.catalogservice.contract.v1.api.CatalogApi;
+import com.turkcell.catalogservice.contract.v1.model.ListProducts200Response;
+import com.turkcell.catalogservice.contract.v1.model.ProductCreateRequest;
+import com.turkcell.catalogservice.contract.v1.model.ProductResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
