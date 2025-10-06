@@ -12,6 +12,7 @@
     <modules>
         <module>catalog-service</module>
         <module>order-service</module>
+        <module>gateway-server</module>
     </modules>
 
     <properties>
