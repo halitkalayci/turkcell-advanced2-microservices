@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
     @GetMapping
     public String get() {
+        System.out.println("Order service working..");
         return "Order-Service working";
     }
 }
