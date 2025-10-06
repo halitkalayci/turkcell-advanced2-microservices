@@ -11,8 +11,12 @@ tags:
 paths:
   /api/v1/products:
     post:
+      deprecated: true
       tags: [ Catalog ]
       summary: Create product
+      description: >
+        "Bu endpoint 2025-12-31 tarihinde kapatılacak.
+        Lütfen /api/v2/products kullanın."
       operationId: createProduct
       requestBody:
         required: true
@@ -25,9 +29,24 @@ paths:
           content:
             application/json:
               schema: { $ref: '#/components/schemas/ProductResponse' }
+          headers:
+            Deprecation:
+              description: >
+                Bu endpoint kaldıralacak. Alternatif için /api/v2/products kullanın.
+              schema:
+                type: boolean
+              example: true
+            Sunset:
+              description: |
+                Bu endpoint 2025-12-31 tarihinde kapatılacak.
+                RFC-8594
+              schema:
+                type: string
+                format: date-time
         '409': { description: Name not unique }
 
     get:
+      deprecated: true
       tags: [ Catalog ]
       summary: List products (paged)
       operationId: listProducts
@@ -55,6 +74,7 @@ paths:
 
   /api/v1/products/{id}:
     get:
+      deprecated: true
       tags: [ Catalog ]
       summary: Get product by id
       operationId: getProductById
