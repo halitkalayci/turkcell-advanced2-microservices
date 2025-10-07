@@ -1,4 +1,4 @@
-package com.turkcell.order_service.outbox;
+package com.turkcell.order_service.messaging.outbox;
 
 import jakarta.persistence.*;
 
