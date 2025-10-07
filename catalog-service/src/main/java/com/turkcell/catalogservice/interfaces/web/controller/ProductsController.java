@@ -2,10 +2,13 @@ package com.turkcell.catalogservice.interfaces.web.controller;
 
 import com.turkcell.catalogservice.application.product.dto.CreateProductRequest;
 import com.turkcell.catalogservice.application.product.dto.CreatedProductResponse;
+import com.turkcell.catalogservice.application.product.dto.GetByIdProductResponse;
 import com.turkcell.catalogservice.application.product.service.ProductApplicationService;
 import com.turkcell.catalogservice.domain.Product;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RequestMapping("api/v2/products")
 @RestController
@@ -21,9 +24,9 @@ public class ProductsController {
         return ResponseEntity.ok(this.productApplicationService.create(createProductRequest));
     }
 
-    @GetMapping
-    public String get()
+    @GetMapping("{id}")
+    public ResponseEntity<GetByIdProductResponse> get(@PathVariable("id") UUID id)
     {
-        return "Deneme";
+        return ResponseEntity.ok(this.productApplicationService.getByID(id));
     }
 }

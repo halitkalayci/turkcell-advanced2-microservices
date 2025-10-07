@@ -2,9 +2,14 @@ package com.turkcell.catalogservice.application.product.service;
 
 import com.turkcell.catalogservice.application.product.dto.CreateProductRequest;
 import com.turkcell.catalogservice.application.product.dto.CreatedProductResponse;
+import com.turkcell.catalogservice.application.product.dto.GetByIdProductResponse;
 import com.turkcell.catalogservice.application.product.mapper.ProductMapper;
 import com.turkcell.catalogservice.domain.Product;
+import com.turkcell.catalogservice.domain.ProductId;
 import com.turkcell.catalogservice.domain.repository.ProductRepository;
+
+import java.util.Optional;
+import java.util.UUID;
 
 public class ProductApplicationService
 {
@@ -22,5 +27,14 @@ public class ProductApplicationService
         Product product = ProductMapper.toEntity(createProductRequest);
         product = productRepository.save(product);
         return ProductMapper.toResponse(product);
+    }
+
+    public GetByIdProductResponse getByID(UUID id)
+    {
+        Optional<Product> product = productRepository.findById(new ProductId(id));
+        if (product.isEmpty())
+            throw new IllegalArgumentException("Product not found");
+
+        return ProductMapper.toGetByIdResponse(product.get());
     }
 }
