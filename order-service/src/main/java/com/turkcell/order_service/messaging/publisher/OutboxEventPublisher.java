@@ -7,6 +7,9 @@ import com.turkcell.order_service.messaging.outbox.OutboxMessage;
 import com.turkcell.order_service.messaging.outbox.OutboxStatus;
 import com.turkcell.order_service.repository.OutboxRepository;
 import org.springframework.cloud.stream.function.StreamBridge;
+import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,12 +32,18 @@ public class OutboxEventPublisher {
     @Scheduled(fixedDelay = 5000)
     @Transactional
     public void publishPendingEvents() throws JsonProcessingException {
+        System.out.println("Publishing pending events");
         List<OutboxMessage> pendingEvents = outboxRepository.findByStatusOrderByCreatedAtAsc(OutboxStatus.PENDING);
 
         for (OutboxMessage pendingEvent : pendingEvents) {
+            System.out.println("Publishing pending event: " + pendingEvent.eventID());
             OrderCreatedEvent event = objectMapper.readValue(pendingEvent.payloadJson(), OrderCreatedEvent.class);
 
-            boolean sent = streamBridge.send("orders", event);
+            Message<OrderCreatedEvent> msg = MessageBuilder
+                    .withPayload(event)
+                    .build();
+
+            boolean sent = streamBridge.send("orders", msg);
 
             if(sent)
             {
@@ -47,8 +56,8 @@ public class OutboxEventPublisher {
                 {
                     pendingEvent.setStatus(OutboxStatus.FAILED);
                     pendingEvent.setProcessedAt(OffsetDateTime.now());
-                    outboxRepository.save(pendingEvent);
                 }
+                outboxRepository.save(pendingEvent);
             }
         }
     }

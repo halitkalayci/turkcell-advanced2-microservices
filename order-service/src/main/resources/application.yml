@@ -6,10 +6,9 @@ spring:
       definition: processOrder
     stream:
         bindings:
-          processOrder-in-0:
+          orders-out-0:
             destination: orders
-          processOrder-out-0:
-            destination: payments
+            content-type: application/json
   h2:
     console:
       enabled: true
