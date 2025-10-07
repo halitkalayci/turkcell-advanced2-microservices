@@ -5,9 +5,11 @@ import com.turkcell.catalogservice.domain.ProductId;
 import com.turkcell.catalogservice.domain.repository.ProductRepository;
 import com.turkcell.catalogservice.infrastructure.entity.ProductEntity;
 import com.turkcell.catalogservice.infrastructure.mapper.ProductPersistenceMapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+@Repository
 public class JpaProductRepositoryAdapter implements ProductRepository {
     private final SpringDataProductRepository repository;
 

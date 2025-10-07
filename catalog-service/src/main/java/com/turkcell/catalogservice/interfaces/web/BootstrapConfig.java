@@ -10,11 +10,6 @@ import org.springframework.context.annotation.Configuration;
 public class BootstrapConfig
 {
     @Bean
-    public ProductRepository productRepository() {
-        return new InMemoryProductRepository();
-    }
-
-    @Bean
     public ProductApplicationService productApplicationService(ProductRepository productRepository) {
         return new ProductApplicationService(productRepository);
     }
