@@ -31,6 +31,6 @@ public final class ProductMapper {
     }
 
     public static GetByIdProductResponse toGetByIdResponse(Product product) {
-        return new GetByIdProductResponse(product.id().value(), product.name(), product.stock());
+        return new GetByIdProductResponse(product.id().value(), product.name(), product.stock(), product.money().amount());
     }
 }
