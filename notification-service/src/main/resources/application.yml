@@ -2,7 +2,7 @@ spring:
   application:
     name: notification-service
   kafka:
-    bootstrap-servers: localhost:57925
+    bootstrap-servers: localhost:58257
   cloud:
     function:
       definition: orderCreated
@@ -17,6 +17,12 @@ spring:
             back-off-initial-interval: 1000
             back-off-multiplier: 2.0
             back-off-max-interval: 30000
-
+      kafka:
+        bindings:
+          orderCreated-in-0:
+            consumer:
+              enable-dlq: true
+              # error.<destination>.<group>
+              #dlq-name: orders.dlq.notification
 server:
   port: 8082

@@ -44,7 +44,6 @@ public class OutboxEventPublisher {
                     .build();
 
             try {
-                var x = 1/0;
                 boolean sent = streamBridge.send("orders", msg);
                 if(sent)
                 {
