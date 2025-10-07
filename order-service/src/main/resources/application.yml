@@ -1,6 +1,15 @@
 spring:
   application:
     name: order-service
+  cloud:
+    function:
+      definition: processOrder
+    stream:
+        bindings:
+          processOrder-in-0:
+            destination: orders
+          processOrder-out-0:
+            destination: payments
 
 server:
   port: 8081
