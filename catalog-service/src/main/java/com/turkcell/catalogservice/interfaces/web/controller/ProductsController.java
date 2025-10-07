@@ -5,10 +5,7 @@ import com.turkcell.catalogservice.application.product.dto.CreatedProductRespons
 import com.turkcell.catalogservice.application.product.service.ProductApplicationService;
 import com.turkcell.catalogservice.domain.Product;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("api/v2/products")
 @RestController
@@ -22,5 +19,11 @@ public class ProductsController {
     @PostMapping
     public ResponseEntity<CreatedProductResponse> addProduct(@RequestBody CreateProductRequest createProductRequest) {
         return ResponseEntity.ok(this.productApplicationService.create(createProductRequest));
+    }
+
+    @GetMapping
+    public String get()
+    {
+        return "Deneme";
     }
 }
