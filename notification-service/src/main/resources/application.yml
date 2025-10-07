@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: notification-service
+  kafka:
+    bootstrap-servers: localhost:57925
+  cloud:
+    function:
+      definition: orderCreated
+    stream:
+      bindings:
+        orderCreated-in-0:
+          destination: orders
+          content-type: application/json
+          group: notification-service
+          consumer:
+            max-attempts: 5
+
+server:
+  port: 8082
