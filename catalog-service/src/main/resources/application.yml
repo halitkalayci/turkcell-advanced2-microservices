@@ -12,7 +12,7 @@ spring:
     jdbc:
       dialect: h2
   datasource:
-    url: jdbc:h2:mem:catalogdb;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:file:C:/Users/PC1/test;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     username: sa
     password:
 server:
