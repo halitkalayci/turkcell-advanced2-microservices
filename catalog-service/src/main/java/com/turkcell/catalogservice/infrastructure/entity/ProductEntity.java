@@ -24,6 +24,20 @@ public class ProductEntity {
     private OffsetDateTime updatedAt;
     private int stock;
 
+    public ProductEntity() {
+    }
+
+    public ProductEntity(UUID id, String name, BigDecimal price, String currency, String description, OffsetDateTime createdAt, OffsetDateTime updatedAt, int stock) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.currency = currency;
+        this.description = description;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.stock = stock;
+    }
+
     public UUID id() {
         return id;
     }

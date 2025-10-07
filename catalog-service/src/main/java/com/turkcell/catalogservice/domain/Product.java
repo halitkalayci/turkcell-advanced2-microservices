@@ -46,6 +46,21 @@ public class Product {
         );
     }
 
+    // Rehydrate => Veri kaynağından okunup yüklenecek version.
+    public static Product rehydrate(
+            ProductId productId,
+            String name,
+            String description,
+            Money money,
+            int stock,
+            OffsetDateTime createdAt,
+            OffsetDateTime updatedAt
+    )
+    {
+        return new Product(productId, name, description, money, stock, createdAt, updatedAt);
+    }
+
+
     // ------ Behavior (Setters) ----------
     public void rename(String newName) {
         if(newName.isBlank())
