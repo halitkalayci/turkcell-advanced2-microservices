@@ -43,14 +43,24 @@ public class OutboxEventPublisher {
                     .withPayload(event)
                     .build();
 
-            boolean sent = streamBridge.send("orders", msg);
-
-            if(sent)
-            {
-                pendingEvent.setStatus(OutboxStatus.SENT);
-                pendingEvent.setProcessedAt(OffsetDateTime.now());
-                outboxRepository.save(pendingEvent);
-            }else{
+            try {
+                var x = 1/0;
+                boolean sent = streamBridge.send("orders", msg);
+                if(sent)
+                {
+                    pendingEvent.setStatus(OutboxStatus.SENT);
+                    pendingEvent.setProcessedAt(OffsetDateTime.now());
+                    outboxRepository.save(pendingEvent);
+                }else{
+                    pendingEvent.setRetryCount(pendingEvent.retryCount() + 1);
+                    if(pendingEvent.retryCount() > 5)
+                    {
+                        pendingEvent.setStatus(OutboxStatus.FAILED);
+                        pendingEvent.setProcessedAt(OffsetDateTime.now());
+                    }
+                    outboxRepository.save(pendingEvent);
+                }
+            }catch (Exception e) {
                 pendingEvent.setRetryCount(pendingEvent.retryCount() + 1);
                 if(pendingEvent.retryCount() > 5)
                 {
@@ -59,6 +69,7 @@ public class OutboxEventPublisher {
                 }
                 outboxRepository.save(pendingEvent);
             }
+
         }
     }
 }
