@@ -3,6 +3,8 @@ package com.turkcell.catalogservice.infrastructure.repo;
 import com.turkcell.catalogservice.domain.Product;
 import com.turkcell.catalogservice.domain.ProductId;
 import com.turkcell.catalogservice.domain.repository.ProductRepository;
+import com.turkcell.catalogservice.infrastructure.entity.ProductEntity;
+import com.turkcell.catalogservice.infrastructure.mapper.ProductPersistenceMapper;
 
 import java.util.Optional;
 
@@ -15,16 +17,19 @@ public class JpaProductRepositoryAdapter implements ProductRepository {
 
     @Override
     public Product save(Product product) {
-        return null;
+        ProductEntity productEntity = ProductPersistenceMapper.toEntity(product);
+        productEntity = repository.save(productEntity);
+        return ProductPersistenceMapper.toDomain(productEntity);
     }
 
     @Override
     public Optional<Product> findById(ProductId id) {
-        return Optional.empty();
+        Optional<ProductEntity> entity = repository.findById(id.value());
+        return entity.map(ProductPersistenceMapper::toDomain);
     }
 
     @Override
     public boolean existsByName(String name) {
-        return false;
+        return repository.existsByNameIgnoreCase(name);
     }
 }
