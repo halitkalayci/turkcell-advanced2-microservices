@@ -41,6 +41,8 @@ public class OutboxEventPublisher {
 
             Message<OrderCreatedEvent> msg = MessageBuilder
                     .withPayload(event)
+                    .setHeader("EventID", pendingEvent.eventID())
+                    .setHeader("EventType", pendingEvent.type())
                     .build();
 
             try {

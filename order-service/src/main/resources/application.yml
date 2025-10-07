@@ -9,6 +9,15 @@ spring:
           orders-out-0:
             destination: orders
             content-type: application/json
+        kafka:
+          bindings:
+            orders-out-0:
+              producer:
+                sync: true # ACK gelene kadar sent:true ya da false olana kadar bekle.
+                configuration:
+                  acks: all
+                  enable.idempotence: true
+
   h2:
     console:
       enabled: true
