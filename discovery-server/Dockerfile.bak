@@ -1,0 +1,15 @@
+# Single-Stage Build
+FROM maven:3.9.11-eclipse-temurin-21
+
+WORKDIR /app
+
+COPY pom.xml ./
+
+RUN mvn -DskipTests dependency:go-offline
+
+COPY src ./src
+
+RUN mvn -DskipTests clean package
+
+EXPOSE 8761
+ENTRYPOINT ["sh", "-c", "java -jar target/*.jar"]

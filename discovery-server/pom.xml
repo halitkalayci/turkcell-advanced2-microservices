@@ -3,11 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.turkcell</groupId>
-        <artifactId>project</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.6</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
-
+    <groupId>com.turkcell</groupId>
     <artifactId>discovery-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>discovery-server</name>
