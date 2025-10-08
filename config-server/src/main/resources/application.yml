@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: config-server
+  profiles:
+    active: git
+  cloud:
+    config:
+      server:
+        git:
+          uri: "https://github.com/halitkalayci/turkcell-advanced2-microservices.git"
+          default-label: master
+          search-paths:
+            - configs/
+            - configs/{application}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+server:
+  port: 8787
