@@ -13,6 +13,7 @@ import com.turkcell.order_service.messaging.outbox.OutboxMessage;
 import com.turkcell.order_service.repository.OrderItemRepository;
 import com.turkcell.order_service.repository.OrderRepository;
 import com.turkcell.order_service.repository.OutboxRepository;
+import io.micrometer.observation.annotation.Observed;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +26,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("api/v1/orders")
+@Observed(name="orders-controller") // Buraya gelen tüm istekler tracing'e düşecek.
 public class OrderController {
     private final CatalogClient catalogClient;
     private final OrderRepository orderRepository;

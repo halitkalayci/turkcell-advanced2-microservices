@@ -1,0 +1,32 @@
+prometheus.scrape "config_server" {
+  targets = [{
+    __address__ = "localhost:8787",
+  }]
+
+  forward_to = [prometheus.remote_write.grafana_cloud.receiver]
+
+  scrape_interval = "15s"
+  metrics_path   = "/actuator/prometheus"
+}
+
+
+prometheus.remote_write "grafana_cloud" {
+  endpoint {
+    url = "https://prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom/push"
+
+    basic_auth {
+      username = "2320049"      // Instance ID
+      password = ""          // API Key (glc_...)
+    }
+
+    metadata_config {
+      send_interval = "1m"
+    }
+  }
+
+  external_labels = {
+    cluster     = "dev-cluster",
+    environment = "dev",
+    application = "config-server",
+  }
+}

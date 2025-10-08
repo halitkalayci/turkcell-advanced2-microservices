@@ -3,6 +3,7 @@ package com.turkcell.notificationservice.consumer;
 import com.turkcell.notificationservice.entity.ProcessedEvent;
 import com.turkcell.notificationservice.event.OrderCreatedEvent;
 import com.turkcell.notificationservice.repository.ProcessedEventRepository;
+import io.micrometer.observation.annotation.Observed;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.Message;
@@ -21,6 +22,7 @@ public class OrderCreatedConsumer {
     }
 
     @Bean
+    //@Observed(name="order-created")
     public Consumer<Message<OrderCreatedEvent>> orderCreated() {
         return message ->{
             Optional<ProcessedEvent> alreadyProcessedEvent = processedEventRepository.findByEventId(
