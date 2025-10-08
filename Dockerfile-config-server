@@ -1,0 +1,20 @@
+FROM eclipse-temurin:21-jdk-alpine AS build
+WORKDIR /workspace
+
+COPY pom.xml .
+COPY config-server/pom.xml ./config-server/
+COPY config-server/mvnw ./config-server/
+COPY config-server/.mvn ./config-server/.mvn
+COPY config-server/src ./config-server/src
+
+RUN chmod +x config-server/mvnw && \
+    cd config-server && \
+    ./mvnw clean package spring-boot:repackage -DskipTests
+
+FROM eclipse-temurin:21-jre-alpine
+
+EXPOSE 8787
+
+COPY --from=build /workspace/config-server/target/*.jar /app/app.jar
+
+ENTRYPOINT ["sh","-c","java -jar /app/app.jar"]
