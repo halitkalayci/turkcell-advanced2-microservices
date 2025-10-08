@@ -1,0 +1,14 @@
+services:
+  discovery-server:
+    image: tcell-discovery-server2:latest
+    container_name: discovery-server
+    ports:
+      - "8761:8761"
+    environment:
+      - CONFIGURL=http://config-server:8787
+      - SPRING_PROFILES_ACTIVE=prod
+  config-server:
+    image: config-srv:latest
+    container_name: config-server
+    ports:
+      - "8787:8787"

@@ -1,7 +1,9 @@
+CONFIGURL: http://localhost:8787
+
 spring:
   application:
     name: discovery-server
   profiles:
     active: dev
   config:
-    import: optional:configserver:http://localhost:8787
+    import: optional:configserver:${CONFIGURL}
