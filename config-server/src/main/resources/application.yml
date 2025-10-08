@@ -18,5 +18,10 @@ management:
       exposure:
         include: "*"
 
+loki:
+  url: "https://logs-prod-012.grafana.net/loki/api/v1/push"
+  username: "1155702"
+  password: ""
+
 server:
   port: 8787

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
+    <springProperty scope="context" name="appName" source="spring.application.name"/>
+    <springProperty scope="context" name="lokiUrl" source="loki.url"/>
+    <springProperty scope="context" name="lokiUsername" source="loki.username"/>
+    <springProperty scope="context" name="lokiPassword" source="loki.password"/>
+
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg %n</pattern>
@@ -8,18 +13,36 @@
 
     <appender name="LOKI" class="com.github.loki4j.logback.Loki4jAppender">
         <http>
-            <url>https://logs-prod-012.grafana.net</url>
+            <url>${lokiUrl}</url>
             <auth>
-                <username></username>
-                <password></password>
+                <username>${lokiUsername}</username>
+                <password>${lokiPassword}</password>
             </auth>
         </http>
         <format>
-
+            <label>
+                <pattern>application=${appName},host=${HOSTNAME},level=%level</pattern>
+            </label>
+            <message>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg %n</pattern>
+            </message>
+            <sortByTime>true</sortByTime>
         </format>
+    </appender>
+
+    <!--- LOKI ASYNC WRAPPER -->
+    <appender name="ASYNC_LOKI" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="LOKI"/>
+        <queueSize>1000</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <includeCallerData>true</includeCallerData>
     </appender>
 
     <root level="INFO">
         <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_LOKI" />
     </root>
+
+    <logger name="com.turkcell" level="DEBUG"/>
+    <logger name="org.springframework.cloud.config" level="DEBUG" />
 </configuration>
