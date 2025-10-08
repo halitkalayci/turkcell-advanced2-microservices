@@ -7,8 +7,16 @@ services:
     environment:
       - CONFIGURL=http://config-server:8787
       - SPRING_PROFILES_ACTIVE=dev
+    depends_on: # container yeşil statuse geçti mi?
+       config-server:
+         condition: service_healthy
   config-server:
     image: config-srv:latest
     container_name: config-server
     ports:
       - "8787:8787"
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8787/actuator/health"]
+      interval: 3s
+      timeout: 2s
+      retries: 5
