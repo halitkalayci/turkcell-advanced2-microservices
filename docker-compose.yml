@@ -6,7 +6,7 @@ services:
       - "8761:8761"
     environment:
       - CONFIGURL=http://config-server:8787
-      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_PROFILES_ACTIVE=dev
   config-server:
     image: config-srv:latest
     container_name: config-server
