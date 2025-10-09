@@ -7,6 +7,7 @@ import com.turkcell.catalogservice.application.product.mapper.ProductMapper;
 import com.turkcell.catalogservice.domain.Product;
 import com.turkcell.catalogservice.domain.ProductId;
 import com.turkcell.catalogservice.domain.repository.ProductRepository;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.Optional;
@@ -18,6 +19,17 @@ public class ProductApplicationService
 
     public ProductApplicationService(ProductRepository productRepository) {
         this.productRepository = productRepository;
+    }
+
+    // Ya kendi kullanıcı adımı aramalıyım ya da ADMIN olmalıyım.
+    @PreAuthorize("#userName == authentication.principal.username || hasAnyAuthority('ADMIN')")
+    public Object getUser(String userName) {
+        return null;
+    }
+    @PostAuthorize("returnObject.ownerId == #id")
+    public Object getDocument(UUID id)
+    {
+        return null;
     }
 
    @PreAuthorize("isAuthenticated()")
