@@ -1,4 +1,9 @@
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8585/realms/turkcell-microservices-dev
   application:
     name: catalog-service
   h2:

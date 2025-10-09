@@ -7,3 +7,6 @@ spring:
     active: dev
   config:
     import: optional:configserver:${CONFIGURL}
+
+server:
+  port: 8761
