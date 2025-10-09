@@ -18,6 +18,8 @@ public class Order
     private UUID customerId;
     private BigDecimal totalPrice;
     private OffsetDateTime createdAt = OffsetDateTime.now();
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status = OrderStatus.PENDING;
 
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems;

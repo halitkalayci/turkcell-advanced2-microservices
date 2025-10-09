@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: payment-service
+  kafka:
+    bootstrap-servers: localhost:29023
+  cloud:
+    function:
+      definition: processOrder;paymentCompleted;paymentFailed;
+    stream:
+      bindings:
+        orderCreated-in-0:
+          destination: orders
+          content-type: application/json
+          group: payment-service
+          consumer:
+            max-attempts: 5
+            back-off-initial-interval: 1000
+            back-off-multiplier: 2.0
+            back-off-max-interval: 30000
+        paymentCompleted-out-0:
+          destination: payment-completed
+          content-type: application/json
+        paymentFailed-out-0:
+          destination: payment-failed
+          content-type: application/json
+      kafka:
+        bindings:
+          orderCreated-in-0:
+            consumer:
+              enable-dlq: true
+server:
+  port: 8083

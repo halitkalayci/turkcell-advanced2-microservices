@@ -22,17 +22,17 @@ public class ProductApplicationService
     }
 
     // Ya kendi kullanıcı adımı aramalıyım ya da ADMIN olmalıyım.
-    @PreAuthorize("#userName == authentication.principal.username || hasAnyAuthority('ADMIN')")
+    //@PreAuthorize("#userName == authentication.principal.username || hasAnyAuthority('ADMIN')")
     public Object getUser(String userName) {
         return null;
     }
-    @PostAuthorize("returnObject.ownerId == #id")
+   //@PostAuthorize("returnObject.ownerId == #id")
     public Object getDocument(UUID id)
     {
         return null;
     }
 
-   @PreAuthorize("isAuthenticated()")
+   //@PreAuthorize("isAuthenticated()")
     public CreatedProductResponse create(CreateProductRequest createProductRequest) {
         if(productRepository.existsByName(createProductRequest.name()))
             throw new IllegalArgumentException("Product name already exists");
@@ -41,7 +41,7 @@ public class ProductApplicationService
         product = productRepository.save(product);
         return ProductMapper.toResponse(product);
     }
-    @PreAuthorize("hasAnyAuthority('ADMIN','READ_PRODUCT')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN','READ_PRODUCT')")
     public GetByIdProductResponse getByID(UUID id)
     {
         Optional<Product> product = productRepository.findById(new ProductId(id));
