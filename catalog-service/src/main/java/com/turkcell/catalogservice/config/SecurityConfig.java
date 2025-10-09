@@ -23,7 +23,9 @@ public class SecurityConfig {
                                        .requestMatchers("/actuator/**").permitAll()
                                        .requestMatchers("/swagger-ui/**").permitAll()
                                        .requestMatchers("/v3/api-docs/**").permitAll()
-                                       .anyRequest().authenticated()
+                                       .requestMatchers("/h2-console/**").permitAll()
+                                       .requestMatchers("/api/**").authenticated()
+                                       .anyRequest().permitAll()
                )
                .oauth2ResourceServer(o -> {
                    // JWT Converter

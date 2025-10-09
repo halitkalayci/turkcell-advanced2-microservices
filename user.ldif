@@ -1,0 +1,12 @@
+dn: ou=users,dc=halit,dc=local
+objectClass: organizationalUnit
+ou: users
+
+dn: uid=hkalayci,ou=users,dc=halit,dc=local
+objectClass: inetOrgPerson
+uid: hkalayci
+sn: Kalaycı
+givenName: Halit
+cn: Halit Kalaycı
+mail: halit@example.com
+userPassword: password123
