@@ -1,5 +1,6 @@
 package com.turkcell.bff.config;
 
+import com.nimbusds.oauth2.sdk.auth.JWTAuthentication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
