@@ -37,7 +37,7 @@ public class EmbeddedKafkaConfig {
         props.put("controller.listener.names", "CONTROLLER");
 
         EmbeddedKafkaKraftBroker broker =
-                (EmbeddedKafkaKraftBroker) new EmbeddedKafkaKraftBroker(1, 1, "orders", "payments")
+                (EmbeddedKafkaKraftBroker) new EmbeddedKafkaKraftBroker(1, 1,  "payments")
                         // .kafkaPorts(29023) // İsteğe bağlı: artık gerekmez; portu listeners ile sabitledik
                         .brokerProperties(props);
 

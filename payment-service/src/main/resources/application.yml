@@ -5,7 +5,7 @@ spring:
     bootstrap-servers: localhost:29023
   cloud:
     function:
-      definition: processOrder;paymentCompleted;paymentFailed;
+      definition: orderCreated;paymentCompleted;paymentFailed;
     stream:
       bindings:
         orderCreated-in-0:

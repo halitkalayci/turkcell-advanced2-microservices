@@ -1,14 +1,24 @@
 spring:
   application:
     name: order-service
+  kafka:
+    bootstrap-servers: localhost:29023
   cloud:
     function:
-      definition: processOrder
+      definition: processOrder;paymentCompleted;paymentFailed;
     stream:
         bindings:
           orders-out-0:
             destination: orders
             content-type: application/json
+          paymentCompleted-in-0:
+            destination: payment-completed
+            content-type: application/json
+            group: order-service
+          paymentFailed-in-0:
+            destination: payment-failed
+            content-type: application/json
+            group: order-service
         kafka:
           bindings:
             orders-out-0:
