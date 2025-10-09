@@ -33,7 +33,7 @@ public class SecurityConfig {
                                        .requestMatchers("/swagger-ui/**").permitAll()
                                        .requestMatchers("/v3/api-docs/**").permitAll()
                                        .requestMatchers("/h2-console/**").permitAll()
-                                       .requestMatchers(HttpMethod.GET,"/api/v2/products/**").hasAnyAuthority("READ_PRODUCT")
+                                       //.requestMatchers(HttpMethod.GET,"/api/v2/products/**").hasAnyAuthority("READ_PRODUCT")
                                        .anyRequest().permitAll()
                )
                .oauth2ResourceServer(o -> {
