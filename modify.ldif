@@ -1,0 +1,4 @@
+dn: cn=ROLE_ADMIN_LDAP,ou=groups,dc=halit,dc=local
+changetype: modify
+add: member
+member: uid=hkalayci,ou=users,dc=halit,dc=local

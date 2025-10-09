@@ -1,0 +1,8 @@
+dn: ou=groups,dc=halit,dc=local
+objectClass: organizationalUnit
+ou: groups
+
+dn: cn=ROLE_ADMIN_LDAP,ou=groups,dc=halit,dc=local
+objectClass: groupOfNames
+cn: ROLE_ADMIN_LDAP
+member: uid=hkalayci,ou=users,dc=halit,dc=local
