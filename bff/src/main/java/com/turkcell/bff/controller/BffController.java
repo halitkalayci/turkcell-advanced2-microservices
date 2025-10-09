@@ -35,7 +35,7 @@ public class BffController {
     @GetMapping("/example/{id}")
     public Mono<String> example(@PathVariable("id") String id) {
         return webClient.get()
-                .uri("http://localhost:8080/api/v2/products/"+id)
+                .uri("http://catalog-service/api/v2/products/"+id)
                 .retrieve()
                 .bodyToMono(String.class);
     }

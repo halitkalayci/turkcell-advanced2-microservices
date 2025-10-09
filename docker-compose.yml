@@ -73,6 +73,14 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: admin
       KC_HEALTH_ENABLED: "true"
       KC_METRICS_ENABLED: "true"
-
+  my-openldap:
+    image: osixia/openldap:latest
+    container_name: my-openldap
+    ports: ["389:389"]
+    environment:
+      LDAP_ORGANISATION: "Halit"
+      LDAP_DOMAIN: "halit.local"
+      LDAP_ADMIN_PASSWORD: "adminpass"     # sen ne verdiysen onu yaz
+    restart: unless-stopped
 volumes:
   kc_pg_data: {}
